@@ -1,2 +1,2 @@
 ## ReactJs Tutorial
-## Progress on the Javascript course I am taking.
+## Progress on the ReactJs course I am taking.
