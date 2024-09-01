@@ -50,14 +50,36 @@ const pizzaData = [
 function App() {
   return (
     <div>
-      <h1>Hello React!</h1>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+      <Header />
+      <Menu />
+      <Footer />
     </div>
     // we nested this into one dive because we are only allowed to return one element
   );
 }
+
+function Header() {
+  return <h1>Fast React Pizza Co.</h1>;
+}
+
+function Menu() {
+  return (
+    <div>
+      <h2>Our menu</h2>
+      <Pizza />
+      <Pizza />
+      <Pizza />
+      <Pizza />
+    </div>
+  );
+}
+
+const Footer = function () {
+  // return React.createElement("footer", null, "We're currently open.");
+  return (
+    <footer>{new Date().toLocaleTimeString()}. We are currently open.</footer>
+  );
+};
 
 function Pizza() {
   return (
@@ -67,7 +89,6 @@ function Pizza() {
       <p>Tomato, mozarella, spinach, and ricotta cheese</p>
     </div>
   );
-
   //we have to include the pizza component into our app component because App component is the one that is currently being rendered on the screen
 }
 
