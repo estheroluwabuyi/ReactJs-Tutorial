@@ -75,10 +75,24 @@ function Menu() {
 }
 
 const Footer = function () {
-  // return React.createElement("footer", null, "We're currently open.");
+  const hour = new Date().getHours();
+  // console.log(hour);
+
+  const openHour = 12;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.log(isOpen);
+
+  // isOpen === true ? console.log('Yay!') : console.log('Nay');
+
+  // if (hour >= openHour && hour <= closeHour) alert("We're currently open!");
+  // else alert("Sorry we're closed");
+
   return (
     <footer>{new Date().toLocaleTimeString()}. We are currently open.</footer>
   );
+
+  // return React.createElement("footer", null, "We're currently open.");
 };
 
 function Pizza() {
