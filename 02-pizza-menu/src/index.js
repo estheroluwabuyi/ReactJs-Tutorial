@@ -104,6 +104,11 @@ function Menu() {
 function Pizza(props) {
   console.log(props);
   // props is an object and it receives the properties and values from the pizza function
+
+  if (props.pizzaObj.soldOut) return null;
+  // if (props.pizzaObj.soldOut) return <Header />;
+  //Here the pizzaObj with soldOut: true will not be returned(will disappear)
+
   return (
     <li className="pizza">
       <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
@@ -119,14 +124,12 @@ function Pizza(props) {
 
 const Footer = function () {
   const hour = new Date().getHours();
-  const openHour = 12;
+  const openHour = 20;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
 
-  // isOpen === true ? console.log('Yay!') : console.log('Nay');
-  // if (hour >= openHour && hour <= closeHour) alert("We're currently open!");
-  // else alert("Sorry we're closed");
+  // if (!isOpen) return <p>CLOSED</p>;
 
   return (
     <footer className="footer">
