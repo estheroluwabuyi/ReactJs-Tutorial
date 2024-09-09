@@ -71,15 +71,21 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = [];
+  const numPizzas = pizzas.length;
+
   return (
     <main className="menu">
       <h2>Our menu</h2>
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-          //so {pizza} is each pizzaObj array.cur pizza object
-        ))}
-      </ul>
+      {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+            //so {pizza} is each pizzaObj array.cur pizza object
+          ))}
+        </ul>
+      )}
     </main>
   );
 }
@@ -112,9 +118,17 @@ const Footer = function () {
   // else alert("Sorry we're closed");
 
   return (
-    <footer>{new Date().toLocaleTimeString()}. We are currently open.</footer>
+    <footer className="footer">
+      {isOpen && (
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or order online </p>
+          <button className="btn">Order</button>
+        </div>
+      )}
+    </footer>
   );
 
+  //if isOpen is true, then the second part of the && operator will be returned
   // return React.createElement("footer", null, "We're currently open.");
 };
 
