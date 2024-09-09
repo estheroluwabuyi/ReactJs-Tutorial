@@ -101,21 +101,43 @@ function Menu() {
   );
 }
 
-function Pizza(props) {
-  console.log(props);
-  // props is an object and it receives the properties and values from the pizza function
+//Props without destructuring
+// function Pizza(props) {
+//   console.log(props);
+//   // props is an object and it receives the properties and values from the pizza function
 
-  if (props.pizzaObj.soldOut) return null;
+//   if (props.pizzaObj.soldOut) return null;
+//   // if (props.pizzaObj.soldOut) return <Header />;
+//   //Here the pizzaObj with soldOut: true will not be returned(will disappear)
+
+//   return (
+//     <li className="pizza">
+//       <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+//       <div>
+//         <h3>{props.pizzaObj.name}</h3>
+//         <p>{props.pizzaObj.ingredients}</p>
+//         <span>{props.pizzaObj.price}</span>
+//       </div>
+//     </li>
+//   );
+//   //we have to include the pizza component into our app component because App component is the one that is currently being rendered on the screen
+// }
+
+// Destructuring Props
+function Pizza({ pizzaObj }) {
+  console.log(pizzaObj);
+
+  if (pizzaObj.soldOut) return null;
   // if (props.pizzaObj.soldOut) return <Header />;
   //Here the pizzaObj with soldOut: true will not be returned(will disappear)
 
   return (
     <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.price}</span>
       </div>
     </li>
   );
@@ -134,30 +156,24 @@ const Footer = function () {
   return (
     <footer className="footer">
       {isOpen ? (
-        <Order closeHour={closeHour} />
+        <Order closeHour={closeHour} openHour={openHour} />
       ) : (
         <p>
           We're happy to welcome you between {openHour}:00 and {closeHour}:00.
         </p>
       )}
-      {/* {isOpen && (
-        <div className="order">
-          <p>We're open until {closeHour}:00. Come visit us or order online </p>
-          <button className="btn">Order</button>
-        </div>
-      )} */}
     </footer>
   );
 
-  //if isOpen is true, then the second part of the && operator will be returned
   // return React.createElement("footer", null, "We're currently open.");
 };
 
-function Order(props) {
+function Order({ closeHour, openHour }) {
   return (
     <div className="order">
       <p>
-        We're open until {props.closeHour}:00. Come visit us or order online.
+        We're open from {openHour}:00 to {closeHour}:00. Come visit us or order
+        online.
       </p>
       <button className="btn">Order</button>
     </div>
@@ -194,3 +210,14 @@ root.render(
         photoName="pizzas/funghi.jpg"
       /> */
 }
+
+//Conditional Rendering with && operator
+{
+  /* {isOpen && (
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or order online </p>
+          <button className="btn">Order</button>
+        </div>
+      )} */
+}
+//if isOpen is true, then the second part of the && operator will be returned
