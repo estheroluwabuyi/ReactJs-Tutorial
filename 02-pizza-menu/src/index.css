@@ -12,9 +12,11 @@ html {
 
 body {
   font-family: "Roboto Mono", sans-serif;
-  color: #252525;
+  /* color: #252525;*/
+  color: #f7f2e9;
   font-weight: 400;
-  background-color: #f7f2e9;
+  /* background-color: #f7f2e9; */
+  background: #252525;
   border-bottom: 1.6rem solid #edc84b;
   min-height: 100vh;
   padding: 3.2rem;
@@ -140,7 +142,7 @@ body {
   font-size: 1.6rem;
 }
 
-.pizza.sold-out {
+.pizza .sold-out {
   color: #888;
 }
 
