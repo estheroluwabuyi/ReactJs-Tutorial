@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div>
       <Steps />
-      {/* <Steps /> */}
+      <Steps />
     </div>
   );
 }
@@ -30,6 +30,10 @@ function Steps() {
       // setStep((s) => s + 1);
       setStep((s) => s + 1);
     }
+
+    //Bad Practice
+    // test.name = "Fred";
+    // setTest({ name: "Fred" }); //correct
   }
 
   return (
@@ -49,30 +53,25 @@ function Steps() {
           </div>
           <p className="message">
             Step {step}: {messages[step - 1]}
+            {/* test.name */}
           </p>
 
           <div className="buttons">
-            <Button textColor="#fff" bgColor="#7950f2" onClick={handlePrevious}>
-              <span>👈</span>Previous
-            </Button>
-
-            <Button textColor="#fff" bgColor="#7950f2" onClick={handleNext}>
-              Next<span>👉</span>
-            </Button>
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              onClick={handlePrevious}
+            >
+              Previous
+            </button>
+            <button
+              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+              onClick={handleNext}
+            >
+              Nextreact
+            </button>
           </div>
         </div>
       )}
     </div>
-  );
-}
-
-function Button({ textColor, bgColor, onClick, children }) {
-  return (
-    <button
-      style={{ backgroundColor: bgColor, color: textColor }}
-      onClick={onClick}
-    >
-      {children}
-    </button>
   );
 }
