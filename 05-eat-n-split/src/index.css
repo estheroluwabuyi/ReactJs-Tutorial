@@ -28,7 +28,7 @@ body {
 .app {
   min-height: 66vh;
   display: grid;
-  /* grid-template-columns: 34rem 44rem; */
+  grid-template-columns: 34rem 44rem;
   column-gap: 4rem;
   align-items: start;
 }
@@ -51,7 +51,6 @@ body {
 .sidebar ul {
   list-style: none;
   display: flex;
-
   flex-direction: column;
   gap: 0.4rem;
   font-size: 1.4rem;
