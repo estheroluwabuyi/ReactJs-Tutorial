@@ -30,17 +30,56 @@ function Button({ children, onClick }) {
 }
 
 export default function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false);
+  const [addFriendNameInput, setAddFriendNameInput] = useState("");
+  const [addFriendImgInput, setAddFriendImgInput] = useState(
+    "https://i.pravatar.cc/48"
+  );
+  const [friends, setFriends] = useState(initialFriends);
+
+  // const handleAddFriend(friend){
+  //   setFriends((friends)=> [...friends, friend])
+  // }....so he basically lifted this function, and called it inside the addFriendBtn function. Rem he created the addFriendBtn function directly inside the FormAddFunction (Still the same with what you did..the method is just diff)
+
+  const addFriendBtn = function (e) {
+    e.preventDefault();
+
+    if (!addFriendNameInput || !addFriendImgInput) return;
+
+    const id = crypto.randomUUID();
+    const newFriends = {
+      id,
+      name: addFriendNameInput,
+      image: `${addFriendImgInput}?=${id}`,
+      balance: 0,
+    };
+    console.log(newFriends);
+
+    setFriends([...friends, newFriends]);
+
+    setAddFriendNameInput("");
+    setAddFriendImgInput("https://i.pravatar.cc/48");
+    setShowAddFriend(false);
+  };
+
   function handleShowAddFriend() {
     setShowAddFriend((show) => !show);
   }
 
-  const [showAddFriend, setShowAddFriend] = useState(false);
-
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList />
-        {showAddFriend && <FormAddFriend />}
+        <FriendsList friends={friends} />
+
+        {showAddFriend && (
+          <FormAddFriend
+            nameInput={addFriendNameInput}
+            setNameInput={setAddFriendNameInput}
+            imgInput={addFriendImgInput}
+            setImgInput={setAddFriendImgInput}
+            handleAddFriend={addFriendBtn}
+          />
+        )}
         <Button onClick={handleShowAddFriend}>
           {showAddFriend ? "Close" : "Add friend"}
         </Button>
@@ -51,8 +90,8 @@ export default function App() {
   );
 }
 
-function FriendsList() {
-  const friends = initialFriends;
+function FriendsList({ friends }) {
+  // const friends = initialFriends;
   return (
     <ul>
       {friends.map((friend) => (
@@ -88,18 +127,28 @@ function Friend({ friend }) {
   );
 }
 
-// function Button({ children, onClick }) {
-//   return <button className="button" onClick={onClick}>{children}</button>;
-// }
-
-function FormAddFriend() {
+function FormAddFriend({
+  nameInput,
+  setNameInput,
+  imgInput,
+  setImgInput,
+  handleAddFriend,
+}) {
   return (
-    <form className="form-add-friend">
+    <form className="form-add-friend" onSubmit={handleAddFriend}>
       <label>🤼Friend name</label>
-      <input type="text" />
+      <input
+        type="text"
+        value={nameInput}
+        onChange={(e) => setNameInput(e.target.value)}
+      />
 
       <label>📷 Image URL</label>
-      <input type="text" />
+      <input
+        type="text"
+        value={imgInput}
+        onChange={(e) => setImgInput(e.target.value)}
+      />
 
       <Button>Add</Button>
     </form>
