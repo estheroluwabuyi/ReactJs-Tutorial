@@ -75,6 +75,18 @@ export default function App() {
     setShowAddFriend(false);
   }
 
+  function handleSplitBill(value) {
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
+
+    setSelectedFriend(null);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -98,7 +110,12 @@ export default function App() {
           {showAddFriend ? "Close" : "Add friend"}
         </Button>
       </div>
-      {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} />}
+      {selectedFriend && (
+        <FormSplitBill
+          selectedFriend={selectedFriend}
+          onSplitBill={handleSplitBill}
+        />
+      )}
       {/* each time btn is clicked,setSelectedFriend is switched from null to friend obj, so it gets displayed */}
     </div>
   );
@@ -178,14 +195,22 @@ function FormAddFriend({
   );
 }
 
-function FormSplitBill({ selectedFriend }) {
+function FormSplitBill({ selectedFriend, onSplitBill }) {
   const [bill, setBill] = useState("");
   const [paidByUser, setPaidByUser] = useState("");
   const paidByFriend = bill ? bill - paidByUser : "";
   const [whoIsPaying, setWhoIsPaying] = useState("user");
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!bill || !paidByUser) return;
+    onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
+    //so if whoIsPaying is user, then the friend is owing you,but if your friend is paying then you owe your friend hence the negative number
+  }
+
   return (
-    <form className="form-split-bill">
+    <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>Split a bill with {selectedFriend.name}</h2>
 
       <label>💰 Bill Value</label>
@@ -202,7 +227,7 @@ function FormSplitBill({ selectedFriend }) {
         onChange={(e) =>
           setPaidByUser(
             // Number(e.target.value) > bill ? bill : Number(e.target.value)
-            Number(e.target.value) > bill ? bill : Number(e.target.value)
+            Number(e.target.value) > bill ? paidByUser : Number(e.target.value)
           )
         }
       />
