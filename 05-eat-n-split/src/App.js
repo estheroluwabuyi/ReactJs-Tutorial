@@ -208,6 +208,7 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
     onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
     //so if whoIsPaying is user, then the friend is owing you,but if your friend is paying then you owe your friend hence the negative number
   }
+  // 8;
 
   return (
     <form className="form-split-bill" onSubmit={handleSubmit}>
