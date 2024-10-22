@@ -63,6 +63,18 @@ export default function App() {
       </NavBar>
 
       <Main>
+        {/* Passing Elements as Props */}
+        {/* <Box element={<MovieList movies={movies} />} />
+        <Box
+          element={
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedMovieList watched={watched} />
+            </>
+          }
+        /> */}
+
+        {/* Component Composition */}
         <Box>
           <MovieList movies={movies} />
         </Box>
