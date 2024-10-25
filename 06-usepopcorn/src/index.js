@@ -13,7 +13,7 @@ function Test() {
         maxRating={10}
         onSetRatingHandler={setMovieRating}
       />
-      ;<p>This movie was rated {movieRating} stars</p>
+      <p>This movie was rated {movieRating} stars</p>
     </div>
   );
 }
