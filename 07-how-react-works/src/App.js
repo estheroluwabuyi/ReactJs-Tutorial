@@ -26,6 +26,10 @@ export default function App() {
   );
 }
 
+console.log(<DifferentContent />);
+console.log(<DifferentContent test={23} />);
+console.log(DifferentContent()); //react doesn't see this a  component instance but as a raw react element
+
 function Tabbed({ content }) {
   const [activeTab, setActiveTab] = useState(0);
 
