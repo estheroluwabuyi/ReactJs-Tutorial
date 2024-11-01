@@ -114,6 +114,7 @@ export default function App() {
         <FormSplitBill
           selectedFriend={selectedFriend}
           onSplitBill={handleSplitBill}
+          key={selectedFriend.id}
         />
       )}
       {/* each time btn is clicked,setSelectedFriend is switched from null to friend obj, so it gets displayed */}
