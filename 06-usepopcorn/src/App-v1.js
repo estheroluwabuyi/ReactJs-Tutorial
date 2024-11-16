@@ -61,10 +61,7 @@ export default function App() {
     fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=from`)
       .then((res) => res.json())
       .then((data) => setMovies(data.Search));
-    // .catch((error) => console.log("Error:", error));
   }, []);
-
-  // setWatched([])
 
   return (
     <>

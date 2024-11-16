@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const tempMovieData = [
   {
@@ -50,9 +50,45 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+// const KEY = "uyyfyy";
+const KEY = "4ca6cbc0";
+
 export default function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const query = "yyyyigfs";
+
+  useEffect(function () {
+    async function fetchMovies() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+        );
+
+        if (!res.ok)
+          throw new Error("Something went wrong with fetching movies");
+
+        const data = await res.json();
+        if (data.Response === "False") throw new Error("Movie not found");
+
+        setMovies(data.Search);
+        console.log(data);
+
+        // console.log(data.Search);
+        // console.log(movies); //we still have stale state because state is asynchronous so we got an empty array when we log movies to console
+      } catch (err) {
+        console.error(err.message);
+        //it'd catch the error message that we've previously thrown
+        setError(err.message);
+      } finally {
+        setIsLoading(false); //code will always get  executed at the very end
+      }
+    }
+    fetchMovies();
+  }, []);
 
   return (
     <>
@@ -61,22 +97,14 @@ export default function App() {
         <Search />
         <NumResults movies={movies} />
       </NavBar>
-
+      i
       <Main>
-        {/* Passing Elements as Props */}
-        {/* <Box element={<MovieList movies={movies} />} />
-        <Box
-          element={
-            <>
-              <WatchedSummary watched={watched} />
-              <WatchedMovieList watched={watched} />
-            </>
-          }
-        /> */}
-
-        {/* Component Composition */}
         <Box>
-          <MovieList movies={movies} />
+          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
+          {/* only one of theses 3 can be true at the same time */}
+          {isLoading && <Loader />}
+          {!isLoading && !error && <MovieList movies={movies} />}
+          {error && <ErrorMessage message={error} />}
         </Box>
 
         <Box>
@@ -85,6 +113,18 @@ export default function App() {
         </Box>
       </Main>
     </>
+  );
+}
+
+function Loader() {
+  return <p className="loader">Loading...</p>;
+}
+
+function ErrorMessage({ message }) {
+  return (
+    <p className="error">
+      <span>⚠</span> {message}
+    </p>
   );
 }
 
