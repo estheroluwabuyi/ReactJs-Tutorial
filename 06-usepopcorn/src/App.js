@@ -54,50 +54,82 @@ const average = (arr) =>
 const KEY = "4ca6cbc0";
 
 export default function App() {
+  const [query, setQuery] = useState("Inception");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const query = "yyyyigfs";
+  const tempQuery = "from";
+
+  /*
+  useEffect(function () {
+    console.log("After initial render");
+  }, []);
 
   useEffect(function () {
-    async function fetchMovies() {
-      try {
-        setIsLoading(true);
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-        );
+    console.log("After every render");
+  });
 
-        if (!res.ok)
-          throw new Error("Something went wrong with fetching movies");
+  
+  useEffect(
+    function () {
+      console.log("D");
+    },
+    [query]
+  );
 
-        const data = await res.json();
-        if (data.Response === "False") throw new Error("Movie not found");
+  console.log("During render");
+  */
 
-        setMovies(data.Search);
-        console.log(data);
+  useEffect(
+    function () {
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          setError("");
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          );
 
-        // console.log(data.Search);
-        // console.log(movies); //we still have stale state because state is asynchronous so we got an empty array when we log movies to console
-      } catch (err) {
-        console.error(err.message);
-        //it'd catch the error message that we've previously thrown
-        setError(err.message);
-      } finally {
-        setIsLoading(false); //code will always get  executed at the very end
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
+
+          const data = await res.json();
+          if (data.Response === "False") throw new Error("Movie not found");
+
+          setMovies(data.Search);
+          console.log(data.Search);
+
+          // console.log(data.Search);
+          // console.log(movies); //we still have stale state because state is asynchronous so we got an empty array when we log movies to console
+        } catch (err) {
+          console.error(err.message); //it'd catch the error message that we've previously thrown
+          setError(err.message);
+        } finally {
+          setIsLoading(false); //code will always get  executed at the very end
+        }
       }
-    }
-    fetchMovies();
-  }, []);
+      if (
+        // !query.length
+        query.length < 3
+      ) {
+        setMovies([]);
+        setError("");
+        return;
+      }
+      fetchMovies();
+    },
+    [query]
+  );
 
   return (
     <>
       <NavBar>
         <Logo />
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <NumResults movies={movies} />
       </NavBar>
-      i
+
       <Main>
         <Box>
           {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
@@ -149,8 +181,7 @@ function NumResults({ movies }) {
   );
 }
 
-function Search() {
-  const [query, setQuery] = useState("");
+function Search({ query, setQuery }) {
   return (
     <input
       className="search"
