@@ -350,6 +350,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     function () {
       if (!title) return;
       document.title = `Movie | ${title}`;
+
+      //clean up function
+      return function () {
+        document.title = "usePopcorn";
+      };
     },
     [title] //useEffect listens for the change in the title, and based on this change, it manipulates the document title
   );
@@ -435,7 +440,7 @@ function WatchedSummary({ watched }) {
         </p>
         <p>
           <span>⏳</span>
-          <span>{avgRuntime} min</span>
+          <span>{avgRuntime.toFixed(0)} min</span>
         </p>
       </div>
     </div>
