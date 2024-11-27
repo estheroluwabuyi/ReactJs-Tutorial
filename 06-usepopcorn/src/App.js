@@ -346,6 +346,14 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [selectedId]
   );
 
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+    },
+    [title] //useEffect listens for the change in the title, and based on this change, it manipulates the document title
+  );
+
   return (
     <div className="details">
       {isLoading ? (
@@ -470,7 +478,9 @@ function WatchedMovie({ movie, onDeleteWatched }) {
         <button
           className="btn-delete"
           onClick={() => onDeleteWatched(movie.imdbID)}
-        ></button>
+        >
+          x
+        </button>
       </div>
     </li>
   );
