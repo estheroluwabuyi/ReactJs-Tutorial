@@ -100,12 +100,16 @@ export default function App() {
 
   useEffect(
     function () {
+      //cleaning up fetch request
+      const controller = new AbortController();
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
 
           if (!res.ok)
@@ -115,12 +119,16 @@ export default function App() {
           if (data.Response === "False") throw new Error("Movie not found");
 
           setMovies(data.Search);
+          setError("");
 
           // console.log(data.Search);
           // console.log(movies); //we still have stale state because state is asynchronous so we got an empty array when we log movies to console
         } catch (err) {
           console.error(err.message); //it'd catch the error message that we've previously thrown
-          setError(err.message);
+
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
         } finally {
           setIsLoading(false); //code will always get  executed at the very end
         }
@@ -134,6 +142,10 @@ export default function App() {
         return;
       }
       fetchMovies();
+
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
