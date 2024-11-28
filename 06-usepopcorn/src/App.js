@@ -54,7 +54,7 @@ const average = (arr) =>
 const KEY = "4ca6cbc0";
 
 export default function App() {
-  const [query, setQuery] = useState("Inception");
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,10 +124,9 @@ export default function App() {
           // console.log(data.Search);
           // console.log(movies); //we still have stale state because state is asynchronous so we got an empty array when we log movies to console
         } catch (err) {
-          console.error(err.message); //it'd catch the error message that we've previously thrown
-
           if (err.name !== "AbortError") {
             setError(err.message);
+            console.log(err.message); //it'd catch the error message that we've previously thrown
           }
         } finally {
           setIsLoading(false); //code will always get  executed at the very end
@@ -141,6 +140,9 @@ export default function App() {
         setError("");
         return;
       }
+
+      handleCloseMovie();
+
       fetchMovies();
 
       return function () {
@@ -336,9 +338,27 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
     };
+
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onCloseMovie]
+  );
 
   useEffect(
     function () {
@@ -366,6 +386,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       //clean up function
       return function () {
         document.title = "usePopcorn";
+        // console.log(`Clean up effect for movie ${title}`);
       };
     },
     [title] //useEffect listens for the change in the title, and based on this change, it manipulates the document title
