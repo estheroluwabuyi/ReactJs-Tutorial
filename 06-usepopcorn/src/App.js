@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import StarRating from "./StarRating";
 
 const tempMovieData = [
@@ -219,11 +219,35 @@ function NumResults({ movies }) {
 }
 
 function Search({ query, setQuery }) {
-  useEffect(function () {
-    const el = document.querySelector(".search");
-    console.log(el);
-    el.focus();
-  }, []);
+  // useEffect(function () {
+  //   const el = document.querySelector(".search");
+  //   console.log(el);
+  //   el.focus();
+  // }, []);
+
+  const inputEl = useRef(null);
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (document.activeElement === inputEl.current) return;
+        //means that if the user is typing and they hit enter, the callback function will not be called (a guard clause)
+
+        if (e.code === "Enter") {
+          inputEl.current.focus();
+
+          setQuery("");
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+
+      //cleanup function
+      return () => document.removeEventListener("keydown", callback);
+      //deactivates the eventlistener when the component unmounts
+    },
+    [setQuery]
+  );
 
   return (
     <input
@@ -232,6 +256,7 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
     />
   );
 }
@@ -307,6 +332,19 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
 
+  const countRef = useRef(0);
+  // let count = 0;
+
+  useEffect(
+    function () {
+      // if (userRating) countRef.current = countRef.current + 1;
+      // if (userRating) countRef.current += 1;
+      if (userRating) countRef.current++;
+      // if (userRating) count++;
+    },
+    [userRating]
+  );
+
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
@@ -334,6 +372,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
+      countRatingDecisions: countRef.current,
     };
 
     onAddWatched(newWatchedMovie);
