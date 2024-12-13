@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
-import { useKey } from "./useKey";
 
 const tempMovieData = [
   {
@@ -180,12 +179,27 @@ function Search({ query, setQuery }) {
 
   const inputEl = useRef(null);
 
-  useKey("Enter", function () {
-    if (document.activeElement === inputEl.current) return;
-    inputEl.current.focus();
+  useEffect(
+    function () {
+      function callback(e) {
+        if (document.activeElement === inputEl.current) return;
+        //means that if the user is typing and they hit enter, the callback function will not be called (a guard clause)
 
-    setQuery("");
-  });
+        if (e.code === "Enter") {
+          inputEl.current.focus();
+
+          setQuery("");
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+
+      //cleanup function
+      return () => document.removeEventListener("keydown", callback);
+      //deactivates the eventlistener when the component unmounts
+    },
+    [setQuery]
+  );
 
   return (
     <input
@@ -317,7 +331,22 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onCloseMovie();
   }
 
-  useKey("Escape", onCloseMovie);
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onCloseMovie]
+  );
 
   useEffect(
     function () {
