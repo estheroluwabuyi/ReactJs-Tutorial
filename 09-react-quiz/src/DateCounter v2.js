@@ -1,7 +1,5 @@
 import { useReducer } from "react";
 
-const initialState = { count: 0, step: 1 };
-
 function reducer(state, action) {
   console.log(state, action);
 
@@ -19,16 +17,24 @@ function reducer(state, action) {
     case "setStep":
       return { ...state, step: action.payload };
 
-    case "reset":
-      // return { count: 0, step: 1 };
-      return initialState;
-
     default:
       throw new Error("unKnown action");
   }
+
+  //this returns the initial value of the dispatch function as the action and the current value as the state
+  // if (action.type === "inc") return state + action.payload;
+  // if (action.type === "inc") return state + action.payload;
+  // if (action.type === "inc") return state + 1;
+  // if (action.type === "dec") return state - 1;
+  // if (action.type === "setCount") return action.payload;
+  // if (action.type !== "setCount") return;
 }
 
 function DateCounter() {
+  // const [count, setCount] = useState(0);
+  // const [step, setStep] = useState(1);
+
+  const initialState = { count: 0, step: 1 };
   const [state, dispatch] = useReducer(reducer, initialState);
   const { count, step } = state;
 
@@ -37,10 +43,12 @@ function DateCounter() {
   date.setDate(date.getDate() + count);
 
   const dec = function () {
+    // dispatch({ type: "dec", payload: 1 });
     dispatch({ type: "dec" });
   };
 
   const inc = function () {
+    // dispatch({ type: "inc", payload: 1 });
     dispatch({ type: "inc" });
   };
 
@@ -54,7 +62,8 @@ function DateCounter() {
   };
 
   const reset = function () {
-    dispatch({ type: "reset" });
+    // setCount(0);
+    // setStep(1);
   };
 
   return (
