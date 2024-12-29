@@ -4,6 +4,7 @@ import Main from "./Main";
 import Loader from "./Loader";
 import Error from "./Error";
 import StartScreen from "./StartScreen";
+import Question from "./Question";
 
 const initialState = {
   questions: [],
@@ -25,6 +26,11 @@ function reducer(state, action) {
         ...state,
         questions: action.payload,
         status: "error",
+      };
+    case "start":
+      return {
+        ...state,
+        status: "active",
       };
 
     default:
@@ -51,9 +57,13 @@ export default function App() {
 
       <main className="main">
         <Main>
+          {/* Only one of these code lines will get displayed depending on the condition */}
           {status === "loading" && <Loader />}
           {status === "error" && <Error />}
-          {status === "ready" && <StartScreen numQuestions={numQuestions} />}
+          {status === "ready" && (
+            <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+          )}
+          {status === "active" && <Question />}
         </Main>
       </main>
     </div>
