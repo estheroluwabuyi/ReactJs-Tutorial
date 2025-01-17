@@ -1,0 +1,18 @@
+.nav {
+  background: orangered;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav :global(.active) {
+  background: green;
+}
+
+/* :global(.test) {
+  background: red;
+} */
+/* using global on the class will make it applicable to all elements */
