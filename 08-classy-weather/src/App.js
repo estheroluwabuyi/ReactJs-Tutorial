@@ -81,7 +81,7 @@ class App extends React.Component {
 
   // Lifecycle Methods
   //useEffect []
-  //Called immediately after rendering
+  //Called immediately after rendering (initial render)
   componentDidMount() {
     // this.fetchWeather();
     //this will immediately start fetching for the weather as soon as the app is loaded. This works because we have Nigeria ass a predefined location string
