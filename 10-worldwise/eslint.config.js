@@ -6,24 +6,20 @@ import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
   {
-    env: {
-      browser: true,
-      es6: true,
-    },
-  },
-  { ignores: ["dist"] },
-  {
     files: ["**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      sourceType: "module",
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
-        ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
-        sourceType: "module",
       },
     },
-    settings: { react: { version: "18.3" } },
+    settings: {
+      react: { version: "18.3" },
+    },
     plugins: {
       react,
       "react-hooks": reactHooks,
@@ -39,18 +35,20 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
-
       "no-unused-vars": [
         "warn",
         {
           vars: "all",
-          args: "none", // Ignore unused function arguments including props
-          ignoreRestSiblings: true, // Ignore unused variables in object destructuring
+          args: "none",
+          ignoreRestSiblings: true,
         },
-      ], // Show unused variables as warnings (yellow)
-      "react/react-in-jsx-scope": "off", // Disable rule for React in scope (React 17+)
-      "no-console": "warn", // Warn when console is used
-      "react/prop-types": "off", // Disable prop-types rule if you use TypeScript or other type-checking solutions
+      ],
+      "react/react-in-jsx-scope": "off",
+      "no-console": "warn",
+      "react/prop-types": "off",
     },
+  },
+  {
+    ignores: ["dist"],
   },
 ];

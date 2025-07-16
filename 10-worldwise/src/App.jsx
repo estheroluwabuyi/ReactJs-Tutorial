@@ -9,8 +9,9 @@ import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
 import CityList from "./components/CityList";
 import CountryList from "./components/CountryList";
+import City from "./components/City";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://localhost:5000";
 
 function App() {
   const [cities, setCities] = useState([]);
@@ -59,6 +60,10 @@ function App() {
               path="cities"
               element={<CityList cities={cities} isLoading={isLoading} />}
             />
+
+            {/* dynamic rotes with url params */}
+            <Route path="cities/:id" element={<City />} />
+
             <Route
               path="countries"
               element={<CountryList cities={cities} isLoading={isLoading} />}
