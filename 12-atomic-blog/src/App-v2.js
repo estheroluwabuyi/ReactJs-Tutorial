@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { PostProvider, usePosts } from "./PostContext";
 import { faker } from "@faker-js/faker";
+import Test from "./Test";
 
 // console.log(faker.address.country());
 
@@ -134,14 +135,18 @@ function List() {
   const { posts } = usePosts();
 
   return (
-    <ul>
-      {posts.map((post, i) => (
-        <li key={i}>
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {posts.map((post, i) => (
+          <li key={i}>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+
+      <Test />
+    </>
   );
 }
 
