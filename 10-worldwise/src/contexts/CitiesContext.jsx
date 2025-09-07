@@ -34,7 +34,24 @@ function CitiesProvider({ children }) {
       const response = await fetch(`${BASE_URL}/cities/${id}`);
       const data = await response.json();
       setCurrentCity(data);
-      // console.log(data);
+    } catch {
+      alert("There was an error fetching data...");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+
+      const response = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      setCities((cities) => [...cities, data]);
     } catch {
       alert("There was an error fetching data...");
     } finally {
@@ -49,6 +66,7 @@ function CitiesProvider({ children }) {
         isLoading,
         currentCity,
         getCity,
+        createCity,
       }}
     >
       {children}

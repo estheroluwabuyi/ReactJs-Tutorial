@@ -35,6 +35,174 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Saint-Christophe-en-Boucherie",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2025-09-07T17:01:13.966Z",
+      "notes": "",
+      "position": {
+        "lat": "46.69692192808129",
+        "lng": "2.0874023437500004"
+      },
+      "id": 98443198
+    },
+    {
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-09-07T17:04:30.514Z",
+      "notes": "",
+      "position": {
+        "lat": "51.56563742101926",
+        "lng": "0.30761718750000006"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-09-07T17:04:30.514Z",
+      "notes": "I just want to be HIGH!",
+      "position": {
+        "lat": "51.56563742101926",
+        "lng": "0.30761718750000006"
+      },
+      "id": 98443200
+    },
+    {
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-09-07T17:04:30.514Z",
+      "notes": "I just want to be HIGH!",
+      "position": {
+        "lat": "51.56563742101926",
+        "lng": "0.30761718750000006"
+      },
+      "id": 98443201
+    },
+    {
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-09-07T17:04:30.514Z",
+      "notes": "I just want to be HIGH!",
+      "position": {
+        "lat": "51.56563742101926",
+        "lng": "0.30761718750000006"
+      },
+      "id": 98443202
+    },
+    {
+      "cityName": "Rugby",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-09-07T17:07:12.919Z",
+      "notes": "",
+      "position": {
+        "lat": "52.36373558490155",
+        "lng": "-1.2084960937500002"
+      },
+      "id": 98443203
+    },
+    {
+      "cityName": "Torremocha del Pinar",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-09-07T17:08:54.752Z",
+      "notes": "",
+      "position": {
+        "lat": "40.88248192714254",
+        "lng": "-2.0434570312500004"
+      },
+      "id": 98443204
+    },
+    {
+      "cityName": "Balearic Sea",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-09-07T17:13:56.791Z",
+      "notes": "",
+      "position": {
+        "lat": "39.809995038171664",
+        "lng": "0.81298828125"
+      },
+      "id": 98443205
+    },
+    {
+      "cityName": "Balearic Sea",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-09-07T17:13:56.791Z",
+      "notes": "I had so much fun swimming",
+      "position": {
+        "lat": "39.809995038171664",
+        "lng": "0.81298828125"
+      },
+      "id": 98443206
+    },
+    {
+      "cityName": "Middle",
+      "country": "Isle of Man",
+      "emoji": "🇮🇲",
+      "date": "2025-09-07T17:15:40.956Z",
+      "notes": "",
+      "position": {
+        "lat": "54.13669645687002",
+        "lng": "-4.47929466648422"
+      },
+      "id": 98443207
+    },
+    {
+      "cityName": "Bolsover",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-09-07T17:22:05.640Z",
+      "notes": "",
+      "position": {
+        "lat": "53.26521293124656",
+        "lng": "-1.200765873416514"
+      },
+      "id": 98443208
+    },
+    {
+      "cityName": "High Hesket",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2025-09-07T17:22:23.355Z",
+      "notes": "",
+      "position": {
+        "lat": "54.77534585936449",
+        "lng": "-2.808823568483261"
+      },
+      "id": 98443209
+    },
+    {
+      "cityName": "Lagos",
+      "country": "Nigeria",
+      "emoji": "🇳🇬",
+      "date": "2025-09-07T17:22:43.497Z",
+      "notes": "OMO! I HATE THIS COUNTRY SM",
+      "position": {
+        "lat": "6.438130033225172",
+        "lng": "3.4284554637019498"
+      },
+      "id": 98443210
+    },
+    {
+      "cityName": "Fuenlabrada de los Montes",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-09-07T17:28:16.088Z",
+      "notes": "",
+      "position": {
+        "lat": "39.16414104768742",
+        "lng": "-4.911869427233887"
+      },
+      "id": 98443211
     }
   ]
 }
