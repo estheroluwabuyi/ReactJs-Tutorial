@@ -9,6 +9,7 @@ function CitiesProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [currentCity, setCurrentCity] = useState({});
 
+  // To fetch all cities from the API and set the state when the component mounts
   useEffect(function () {
     async function fetchCities() {
       try {
@@ -27,6 +28,7 @@ function CitiesProvider({ children }) {
     fetchCities();
   }, []);
 
+  // To get a specific city from the API and update the state
   async function getCity(id) {
     try {
       setIsLoading(true);
@@ -41,6 +43,7 @@ function CitiesProvider({ children }) {
     }
   }
 
+  // To add a new city to the API and update the state
   async function createCity(newCity) {
     try {
       setIsLoading(true);
@@ -53,7 +56,23 @@ function CitiesProvider({ children }) {
       const data = await response.json();
       setCities((cities) => [...cities, data]);
     } catch {
-      alert("There was an error fetching data...");
+      alert("There was an error creating the city...");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function deleteCity(id) {
+    try {
+      setIsLoading(true);
+
+      await fetch(`${BASE_URL}/cities/${id}`, {
+        method: "DELETE",
+      });
+
+      setCities((cities) => cities.filter((city) => city.id !== id));
+    } catch {
+      alert("There was an error deleting the city...");
     } finally {
       setIsLoading(false);
     }
@@ -67,6 +86,7 @@ function CitiesProvider({ children }) {
         currentCity,
         getCity,
         createCity,
+        deleteCity,
       }}
     >
       {children}
