@@ -15,9 +15,6 @@ import { CitiesProvider } from "./contexts/CitiesContext";
 function App() {
   return (
     <div>
-      {/* <h1>Hello Router!</h1> 
-      this page will show irrespective of the currently displayed component
-      */}
       <CitiesProvider>
         <BrowserRouter>
           <Routes>
