@@ -11,20 +11,19 @@ import City from "./components/City";
 import Form from "./components/Form";
 import SpinnerFullPage from "./components/SpinnerFullPage";
 
-// import Product from "./pages/Product";
-// import Pricing from "./pages/Pricing";
-// import HomePage from "./pages/HomePage";
-// import PageNotFound from "./pages/PageNotFound";
-// import AppLayout from "./pages/AppLayout";
-// import Login from "./pages/Login";
+import HomePage from "./pages/HomePage";
 
 // Lazy Loading with code spliting
-const HomePage = lazy(() => import("./pages/Homepage"));
+// const HomePage = lazy(() => import("./pages/Homepage"));
 const Product = lazy(() => import("./pages/Product"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const Login = lazy(() => import("./pages/Login"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const AppLayout = lazy(() => import("./pages/AppLayout"));
+
+// dist/index.html                   0.49 kB │ gzip:   0.32 kB
+// dist/assets/index-B0kQ9U27.css   30.36 kB │ gzip:   5.06 kB
+// dist/assets/index-BOSUAH0l.js   526.56 kB │ gzip: 155.19 kB
 
 function App() {
   return (
