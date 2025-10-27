@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -86,27 +92,31 @@ function CitiesProvider({ children }) {
   }, []);
 
   // To get a specific city from the API and update the state
-  async function getCity(id) {
-    if (Number(id) === currentCity.id) return;
+  //we use useCallback to memoise the function btw renders to prevent the infinite loop issue that we're having
+  const getCity = useCallback(
+    async function getCity(id) {
+      if (Number(id) === currentCity.id) return;
 
-    dispatch({ type: "loading" });
-    try {
-      // setIsLoading(true);
+      dispatch({ type: "loading" });
+      try {
+        // setIsLoading(true);
 
-      const response = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await response.json();
-      // setCurrentCity(data);
-      dispatch({ type: "city/loaded", payload: data });
-    } catch {
-      dispatch({
-        type: "rejected",
-        payload: "There was an error fetching the city...",
-      });
-    }
-    // finally {
-    //   setIsLoading(false);
-    // }
-  }
+        const response = await fetch(`${BASE_URL}/cities/${id}`);
+        const data = await response.json();
+        // setCurrentCity(data);
+        dispatch({ type: "city/loaded", payload: data });
+      } catch {
+        dispatch({
+          type: "rejected",
+          payload: "There was an error fetching the city...",
+        });
+      }
+      // finally {
+      //   setIsLoading(false);
+      // }
+    },
+    [currentCity.id]
+  );
 
   // To add a new city to the API and update the state
   async function createCity(newCity) {
