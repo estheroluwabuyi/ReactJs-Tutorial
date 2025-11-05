@@ -39,6 +39,13 @@ function Calculator({ workouts, allowSound }) {
     [duration, allowSound] //we voluntarily declared the duration dependency even tho we're not using it, this is to tell react that we want this function to run when theres a change in duration
   );
 
+  useEffect(
+    function () {
+      document.title = `Your ${number}-exercise workout`; //stale closure
+    },
+    [number]
+  );
+
   // const duration = (number * sets * speed) / 60 + (sets - 1) * durationBreak;
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
