@@ -3,7 +3,9 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 
-import "./store"; // this will run the store code in the top level file
+import store from "./store";
+store.dispatch({ type: "account/deposit", payload: 300 });
+console.log(store.getState());
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
