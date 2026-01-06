@@ -44,7 +44,7 @@ export default function accReducer(state = initialStateAcc, action) {
 }
 
 export function deposit(amount, currency) {
-  if (currency == "USD") return { type: "account/deposit", payload: amount };
+  if (currency === "USD") return { type: "account/deposit", payload: amount };
 
   // Middleware function
   return async function (dispatch, getState) {
